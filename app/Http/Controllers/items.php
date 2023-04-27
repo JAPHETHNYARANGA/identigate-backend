@@ -97,4 +97,57 @@ class items extends Controller
             ], 500);
         }
     }
+
+    public function specificItem($id){
+        try{
+            $item = ModelsItems::where('id', $id)->get();
+
+            return response([
+                'success' =>true,
+                'message' =>'specific item fetched successfully',
+                'item' =>$item
+            ]);
+
+        }
+        catch (\Throwable $th) {
+            return response()->json([
+                'status' => false,
+                'message' => $th->getMessage()
+            ], 500);
+        }
+    }
+
+    public function deleteItem($id){
+        
+        try{
+            $items = ModelsItems::find($id);
+
+        $res = $items ->delete();
+
+        if($res){
+            return response(
+                [
+                    'success' =>true,
+                    'message' =>'item deleted successfully'
+                ],200
+            );
+        }else {
+            return response(
+                [
+                    'success' => false,
+                    'message' => 'itemdelete failed'
+                ],
+                201
+            );
+
+        }
+    }
+        catch (\Throwable $th) {
+            return response()->json([
+                'status' => false,
+                'message' => $th->getMessage()
+            ], 500);
+        }
+        
+    }
 }
