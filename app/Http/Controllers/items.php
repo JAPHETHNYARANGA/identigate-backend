@@ -44,9 +44,22 @@ class items extends Controller
     }
 
     public function getItems(){
-        return response([
-            'success'=>true,
-            'message' =>'All items returned'
-        ],200);
+        try{
+            $item = ModelsItems::all();
+
+            return response([
+                'success' =>true,
+                'message'=>'items fetched successfully',
+                'items' =>$item
+            ], 200);
+
+            
+
+        }catch (\Throwable $th) {
+            return response()->json([
+                'status' => false,
+                'message' => $th->getMessage()
+            ], 500);
+        }
     }
 }
