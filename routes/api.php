@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\authentication;
+use App\Http\Controllers\items;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -20,11 +22,13 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 
 
 //Authentication
-Route::post('login', [Authentication::class,'login']);
+Route::post('/login', [authentication::class,'login']);
 
-Route::post('register',[Authentication::class, 'register']);
+Route::post('/register',[authentication::class, 'register']);
 
-Route::get('logout', [Authentication::class,'logout'])->middleware('auth:api');
+Route::middleware('auth:sanctum')->post('/logout',[authentication::class,'logout']);
 
 
+//items controller
 
+Route::middleware('auth:sanctum')->get('/items',[items::class,'items']);

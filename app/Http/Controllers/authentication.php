@@ -19,7 +19,7 @@ class authentication extends Controller
 
         $email = $request['email'];
         $user = User::where('email', $email)->firstOrFail();
-        $token = $user->createToken('API TOKEN')->accessToken;
+        $token = $user->createToken('API TOKEN')->plainTextToken;
 
         $credentials = $request->only('email', 'password');
 
@@ -76,8 +76,11 @@ class authentication extends Controller
     }
 
     public function logout(Request $request){
-        $token = $request->user()->token();
-        $res = $token->revoke();
+        $token = $request->user()->tokens();
+        $res = $token->delete();
+
+    //     $request->user()->tokens()->delete();
+    //    return response()->json(['message' => 'Tokens revoked.']);
 
         if($res){
             return response([
