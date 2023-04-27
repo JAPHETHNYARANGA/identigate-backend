@@ -29,6 +29,8 @@ Route::post('/register',[authentication::class, 'register']);
 Route::middleware('auth:sanctum')->post('/logout',[authentication::class,'logout']);
 
 
-//items controller
+//items controllerc
 
-Route::middleware('auth:sanctum')->get('/items',[items::class,'items']);
+Route::middleware('auth:sanctum')->post('/items',[items::class,'postItems']);
+
+Route::middleware('auth:sanctum')->get('/items',[items::class,'getItems']);
