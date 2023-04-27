@@ -34,3 +34,5 @@ Route::middleware('auth:sanctum')->post('/logout',[authentication::class,'logout
 Route::middleware('auth:sanctum')->post('/items',[items::class,'postItems']);
 
 Route::middleware('auth:sanctum')->get('/items',[items::class,'getItems']);
+
+Route::put('updateItem/{id}', [items::class, 'updateItem'])->middleware('auth:sanctum');
