@@ -11,6 +11,8 @@ Then create a .env file and run `php artisan key:generate` to generate applicati
 Create a symlink to load the images by running the following command  `php artisan storage:link`
 Then serve the application using `php artisan serve` and use the application.
 
+Then connect you application to you db and run `php artisan:migrate` to migrate the database tables or run the database in the folder structure called `identigate.sql` directly in the database management system.
+
 ## Technologies
 
 * Laravel
