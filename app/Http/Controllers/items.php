@@ -28,9 +28,9 @@ class items extends Controller
             $filename = uniqid() . '.' . $file->getClientOriginalExtension();
 
             // Move the file to the storage directory
-            // $path = $file->storeAs('public/images', $filename);
+            $path = $file->storeAs('public/images', $filename);
             // Public Folder
-            $path= $file->move(public_path('images'), $filename);
+            // $path= $file->move(public_path('images'), $filename);
 
             $items->image = $path;
 
@@ -59,16 +59,26 @@ class items extends Controller
         }
     }
 
-    public function getItems()
+    public function getItems(Request $request)
     {
         try {
-            $item = ModelsItems::all();
 
+            $search = $request->search;
+
+            if($search){
+                $item = ModelsItems::where('name','LIKE', "%$search%")->get();
+            }else{
+                $item = ModelsItems::all();
+            }
+            
+            
+            
             return response([
                 'success' => true,
                 'message' => 'items fetched successfully',
                 'items' => $item
             ], 200);
+
         } catch (\Throwable $th) {
             return response()->json([
                 'status' => false,
