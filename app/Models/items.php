@@ -12,6 +12,6 @@ class items extends Model
     protected $table = 'items';
 
     protected $fillable = [
-        'id', 'userId', 'name', 'description'
+        'id', 'userId', 'name', 'description', 'image'
     ];
 }
